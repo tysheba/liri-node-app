@@ -9,6 +9,7 @@ var Spotify = require('node-spotify-api');
 var moment = require('moment')
 var userCommand = process.argv[2]
 var userCommand2 = process.argv.slice(3);
+var movie = userCommand2;
 
 //Add the code required to import the keys.js file and store it in a variable.
 var spotify = new Spotify(keys.spotify);
@@ -68,13 +69,43 @@ var getSpotify = function (songName) {
                 console.log("album: " + songs[i].album.name);
                 console.log("-----------------------------------");
             }
-
-
         }
     );
 };
 
-// movie-this
+// 3. movie-this
+// function to retrieve movie information. the command is movie-this
+
+var getMovie = function (movie) {
+    movie = userCommand2;
+    if (movie === undefined) {
+        movie = "Mr. Nobody";
+    }
+    var URL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&r=json&apikey=trilogy"
+    // "https://www.omdbapi.com/?s=" + movie + "&apikey=trilogy"
+    
+    request(URL, function (error, response, body) {
+        console.log('error:', error); // Print the error if one occurred
+        console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+        // console.log('body:', body); // Print the HTML for the Google homepage.
+        var movieInfo = JSON.parse(body);
+        var movieThis = movieInfo
+        console.log(movieThis);
+        console.log(`
+        Movie Title: ${movieThis.Title}
+        Year : ${movieThis.Year}
+        IMDB Rating : ${movieThis.Ratings[0].Value}
+        Rotten Tomatoes Rating: ${movieThis.Ratings[1].Value}
+        Country where the movie was produced: ${movieThis.Country}
+        Language of the movie: ${movieThis.Language}
+        Movie Plot: ${movieThis.Plot}
+        Actors in the movie: ${movieThis.Actors}` )
+        
+        // console.log(movieInfo)
+
+    });
+    console.log("movie")
+}
 // do-what-it-says
 
 
@@ -84,18 +115,13 @@ switch (userCommand) {
         var artist = userCommand2;
         getConcerts();
         break;
-    case "C":
+    case "spotify-this-song":
         var songName = userCommand2;
         getSpotify();
         break;
     case "movie-this":
-        var URL = "https://www.omdbapi.com"
-        request(URL, function (error, response, body) {
-            console.log('error:', error); // Print the error if one occurred
-            console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-            console.log('body:', body); // Print the HTML for the Google homepage.
-        });
-        console.log("movie")
+        var movie = userCommand2;
+        getMovie ();
         break;
     case "do-what-it-says":
         console.log("whatever you want")
