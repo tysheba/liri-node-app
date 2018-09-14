@@ -21,6 +21,8 @@ var spotify = new Spotify(keys.spotify);
 // 1. concert-this
 // Function for running concert search using the Bands in Town Artist Events API
 var getConcerts = function () {
+    console.log ("executing this function")
+    var artist = userCommand2;
     var URL = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
     request(URL, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
@@ -88,7 +90,6 @@ var getMovie = function (movie) {
     request(URL, function (error, response, body) {
         console.log('error:', error); // Print the error if one occurred
         console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-        // console.log('body:', body); // Print the HTML for the Google homepage.
         var movieInfo = JSON.parse(body);
         var movieThis = movieInfo
         // console.log(movieThis);
@@ -156,6 +157,7 @@ function liri () {
     case "concert-this":
         console.log("concert")
         var artist = userCommand2;
+        getConcerts ();
         break;
     case "spotify-this-song":
         var songName = userCommand2;
