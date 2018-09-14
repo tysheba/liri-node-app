@@ -120,15 +120,28 @@ function doWhatever() {
 
         // We will then print the contents of data
         console.log(data);
+
+        // Then split it by commas (to make it more readable)
+        var dataArr = data.split(",");
+
+        // set values to user commands
+        userCommand = dataArr[0];
+        userCommand2 = dataArr[1];
+
+        // We will then re-display the content as an array for later use.
+        console.log(dataArr[0]);
+        console.log(dataArr[1]);
+        liri();
+
     });
 }
+// Create a function to run LIRI
 
-
-switch (userCommand) {
+function liri () {
+    switch (userCommand) {
     case "concert-this":
         console.log("concert")
         var artist = userCommand2;
-        getConcerts();
         break;
     case "spotify-this-song":
         var songName = userCommand2;
@@ -140,8 +153,12 @@ switch (userCommand) {
         break;
     case "do-what-it-says":
         console.log("whatever you want")
-        doWhatever ();
+        doWhatever();
         break;
     default:
         console.log("Enter a valid command")
+};
 }
+
+liri ();
+
