@@ -60,9 +60,9 @@ var getSpotify = function (songName) {
             }
 
             var songs = data.tracks.items;
-            console.log(data)
+            // console.log(data)
 
-            for (i = 0; i < songs.length; i++) {
+            for (i = 0; i < 5; i++) {
                 var songs = data.tracks.items;
                 console.log(chalk.blue("artist(s): ") + songs[i].artists[0].name);//try to get all artist names
                 console.log(chalk.blue("song name: ") + songs[i].name);
@@ -119,7 +119,7 @@ function doWhatever() {
         }
 
         // We will then print the contents of data
-        console.log(data);
+        // console.log(data);
 
         // Then split it by commas (to make it more readable)
         var dataArr = data.split(",");
@@ -129,8 +129,22 @@ function doWhatever() {
         userCommand2 = dataArr[1];
 
         // We will then re-display the content as an array for later use.
-        console.log(dataArr[0]);
-        console.log(dataArr[1]);
+        // console.log(dataArr[0]);
+        // console.log(dataArr[1]);
+        
+        //next log data into a text file
+        fs.appendFile("log.txt", "\n" + data, function(err) {
+
+            // If the code experiences any errors it will log the error to the console.
+            if (err) {
+              return console.log(err);
+            }
+          
+            // Otherwise, it will print: "log.txt was updated!"
+            console.log("log.txt was updated!");
+          
+          });
+          
         liri();
 
     });
