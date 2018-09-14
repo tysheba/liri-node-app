@@ -7,6 +7,7 @@ var fs = require('fs')
 var request = require('request')
 var Spotify = require('node-spotify-api');
 var moment = require('moment')
+var chalk = require('chalk')
 var userCommand = process.argv[2]
 var userCommand2 = process.argv.slice(3);
 var movie = userCommand2;
@@ -32,9 +33,9 @@ var getConcerts = function () {
             var venueLocation = (bandsInfo[i].venue.city + ", " + bandsInfo[i].venue.region)
             var eventDate = moment(bandsInfo[i].datetime).format('L')
             
-            console.log("Venue Name: " + venueName)
-            console.log("Location: " + venueLocation)
-            console.log("Date of Event: " + eventDate)
+            console.log(chalk.yellow("Venue Name: ") + venueName)
+            console.log(chalk.yellow("Location: ") + venueLocation)
+            console.log(chalk.yellow("Date of Event: ") + eventDate)
             console.log("-----------------------------------");
         }
 
@@ -63,10 +64,10 @@ var getSpotify = function (songName) {
 
             for (i = 0; i < songs.length; i++) {
                 var songs = data.tracks.items;
-                console.log("artist(s): " + songs[i].artists[0].name);//try to get all artist names
-                console.log("song name: " + songs[i].name);
-                console.log("preview link: " + songs[i].preview_url);
-                console.log("album: " + songs[i].album.name);
+                console.log(chalk.blue("artist(s): ") + songs[i].artists[0].name);//try to get all artist names
+                console.log(chalk.blue ("song name: ") + songs[i].name);
+                console.log(chalk.blue ("preview link: " )+ songs[i].preview_url);
+                console.log(chalk.blue ("album: ") + songs[i].album.name);
                 console.log("-----------------------------------");
             }
         }
@@ -90,16 +91,17 @@ var getMovie = function (movie) {
         // console.log('body:', body); // Print the HTML for the Google homepage.
         var movieInfo = JSON.parse(body);
         var movieThis = movieInfo
-        console.log(movieThis);
+        // console.log(movieThis);
         console.log(`
-        Movie Title: ${movieThis.Title}
-        Year : ${movieThis.Year}
-        IMDB Rating : ${movieThis.Ratings[0].Value}
-        Rotten Tomatoes Rating: ${movieThis.Ratings[1].Value}
-        Country where the movie was produced: ${movieThis.Country}
-        Language of the movie: ${movieThis.Language}
-        Movie Plot: ${movieThis.Plot}
-        Actors in the movie: ${movieThis.Actors}` )
+        ${chalk.green ("Movie Title: ")} ${movieThis.Title}
+        ${chalk.green ("Year : ")} ${movieThis.Year}
+        ${chalk.green ("IMDB Rating : ")} ${movieThis.Ratings[0].Value}
+        ${chalk.green ("Rotten Tomatoes Rating: ")} ${movieThis.Ratings[1].Value}
+        ${chalk.green ("Country where the movie was produced: ")} ${movieThis.Country}
+        ${chalk.green ("Language of the movie: ")} ${movieThis.Language}
+        ${chalk.green ("Movie Plot: ") } ${movieThis.Plot}
+        ${chalk.green ("Actors in the movie: ") } ${movieThis.Actors}
+        ____________________________________________` )
         
         // console.log(movieInfo)
 
